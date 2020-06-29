@@ -1,8 +1,18 @@
 const otherTextField = document.getElementById('other-title');
 otherTextField.style.display = 'none';
 document.getElementById('name').focus();
-
 const title = document.getElementById('title');
+
+//https://stackoverflow.com/questions/1772941/how-can-i-insert-a-character-after-every-n-characters-in-javascript
+let formatCreditCard = (string, indexValue) => {
+  let array = [];
+
+  for (let i = 0; i < string.length; i += indexValue) {
+    array.push(string.substr(i, indexValue));
+  }
+  console.log(array);
+  return array;
+};
 
 title.addEventListener('change', (e) => {
   let selection = title.value;
@@ -14,7 +24,7 @@ title.addEventListener('change', (e) => {
     otherTextField.style.display = 'none';
   }
 });
-//debugger
+
 let shirtColor = document.getElementById('color');
 let placeholder = document.createElement('option');
 placeholder.setAttribute('value', 'placeholder');
@@ -124,7 +134,7 @@ activities.addEventListener('change', (e) => {
 
 document.querySelector('.paypal').firstElementChild.classList.add('paypal2');
 document.querySelector('.bitcoin').firstElementChild.classList.add('bitcoin2');
-// document.querySelector('.paypal').style.display = 'block';
+document.querySelector('.paypal').style.display = 'none';
 document.querySelector('.bitcoin').style.display = 'none';
 document.getElementById('payment').children[0].disabled = 'true';
 
@@ -153,11 +163,11 @@ let nameErrorMessageText = document.createElement('span');
 nameErrorMessageText.textContent = 'Name field cannot be blank.';
 nameErrorMessage.appendChild(nameErrorMessageText);
 nameFieldset.insertBefore(nameErrorMessage, nameFieldset.children[2]);
-
+let nameRegex = /^[a-z]+$/;
 let nameValue = document.getElementById('name');
 nameValue.addEventListener('focusout', (e) => {
   let input = e.target.value;
-  let nameRegex = /^[a-z]+$/;
+
   if (!nameRegex.test(input)) {
     nameErrorMessage.style.display = 'inline-block';
   }
@@ -234,7 +244,6 @@ activitiesDiv.addEventListener('mouseleave', (e) => {
 });
 
 activitiesDiv.addEventListener('click', (e) => {
-  debugger;
   for (let i = 0; i < activityArray.length; i++) {
     if (activityArray[i].checked) {
       activitiesErrorMessage.style.display = 'none';
@@ -244,29 +253,50 @@ activitiesDiv.addEventListener('click', (e) => {
 });
 
 let creditCardInput = document.querySelector('#cc-num');
+
 let creditCardDiv = document.querySelector('#credit-card').firstElementChild;
-creditCardDiv.classList.add('paymentFieldSet');
+console.log(creditCardDiv);
+//creditCardDiv.classList.add('paymentFieldSet');
 console.log(creditCardDiv);
 let creditCardErrorMessage = document.createElement('div');
 creditCardErrorMessage.classList.add('creditCardPopup');
+// creditCardErrorMessage.setAttribute('id', 'creditCardPopup');
 let creditCardErrorMessageText = document.createElement('span');
 creditCardErrorMessageText.textContent =
   'Please enter a valid credit card number with no spaces or dashes.';
 creditCardErrorMessage.appendChild(creditCardErrorMessageText);
-creditCardDiv.insertBefore(creditCardErrorMessage, creditCardDiv.children[1]);
+creditCardDiv.insertBefore(creditCardErrorMessage, creditCardDiv.children[0]);
 
-creditCardInput.addEventListener('keyup', (e) => {
+let editButton = document.createElement('button');
+editButton.textContent = 'Edit';
+editButton.classList.add('editButton');
+editButton.style.display = 'none';
+creditCardDiv.insertBefore(editButton, creditCardErrorMessage);
+
+creditCardInput.addEventListener('blur', (e) => {
   let input = e.target.value;
-
-  //parseInt(newInputNoSpace);
   let creditCardRegex = /^\d{13,16}\s*\b/;
   if (!creditCardRegex.test(input)) {
     creditCardErrorMessage.style.display = 'inline-block';
   }
   if (creditCardRegex.test(input)) {
     creditCardErrorMessage.style.display = 'none';
+    //debugger;
+    let finalInput = creditCardInput.value;
+    finalInput = formatCreditCard(finalInput, 4).join('-');
+    creditCardInput.value = finalInput;
+    creditCardInput.disabled = 'true';
+    editButton.style.display = 'block';
   }
 });
+
+editButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  creditCardInput.removeAttribute('disabled');
+  creditCardInput.value = '';
+  editButton.style.display = 'none';
+});
+
 let zipCodeDiv = document.querySelector('#credit-card').children[1];
 console.log(zipCodeDiv);
 let zipCodeInput = document.querySelector('#zip');
@@ -278,14 +308,16 @@ zipCodeErrorMessage.appendChild(zipCodeErrorMessageText);
 zipCodeDiv.insertBefore(zipCodeErrorMessage, zipCodeDiv.children[0]);
 
 zipCodeInput.addEventListener('keyup', (e) => {
-  let input = e.target.value;
+  if (e.target.value.length > 3) {
+    let input = e.target.value;
 
-  let zipCodeRegex = /^[0-9]{5}$/;
-  if (!zipCodeRegex.test(input)) {
-    zipCodeErrorMessage.style.display = 'inline-block';
-  }
-  if (zipCodeRegex.test(input)) {
-    zipCodeErrorMessage.style.display = 'none';
+    let zipCodeRegex = /^[0-9]{5}$/;
+    if (!zipCodeRegex.test(input)) {
+      zipCodeErrorMessage.style.display = 'inline-block';
+    }
+    if (zipCodeRegex.test(input)) {
+      zipCodeErrorMessage.style.display = 'none';
+    }
   }
 });
 
@@ -320,5 +352,14 @@ cvvInput.addEventListener('focusout', (e) => {
   }
   if (cvvRegex.test(input)) {
     cvvErrorMessage.style.display = 'none';
+  }
+});
+
+let submitFormButton = document.querySelector('button');
+let form = document.querySelector('form');
+submitFormButton.addEventListener('click', (e) => {
+  if (!nameRegex.test(nameValue)) {
+    e.preventDefault();
+    console.log('button clicked');
   }
 });

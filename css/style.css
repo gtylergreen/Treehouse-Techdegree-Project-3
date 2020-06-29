@@ -166,10 +166,13 @@ option {
 .bitcoin {
   margin-top: 10px;
   margin-bottom: 10px;
-  height: 100px;
+  /* height: 100px; */
   padding: 5px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
+  width: 679px;
+
+  
 }
 
 /* .paypal2 {
@@ -279,12 +282,12 @@ option {
   padding: 5px;
 }
 
-p {
+/* p {
   top: 0%;
   /* display: inline-block; */
-  position: absolute;
-  left: 35%;
-}
+  /* position: absolute;
+  left: 35%; */
+/* } */
 
 .creditCardPopup {
   display: none;
@@ -292,7 +295,7 @@ p {
   border-radius: 5px;
   color: white;
   position: absolute;
-  left: 60%;
+  left: 30%;
   top: 0%;
   font-size: medium;
   border: 2px solid #a9a9a9;
@@ -308,8 +311,8 @@ p {
   color: white;
   position: absolute;
   left: 52.5%;
-  top: 70%;
-  bottom: 50%
+  top: 30%;
+  bottom: 50%;
   font-size: medium;
   border: 2px solid #a9a9a9;
   width: 140px;
@@ -324,7 +327,7 @@ p {
 	color: white;
 	position: absolute;
 	left: 95%;
-	top: 20%;
+	top: 10%;
 	bottom: 50%
 	font-size: medium;
 	border: 2px solid #a9a9a9;
@@ -339,4 +342,15 @@ fieldset {
 
 .paymentFieldSet {
   position: relative;
+}
+
+.editButton {
+	font-size: small;
+	position: absolute;
+	height: 30px;
+	width: 50px;
+	text-align: center;
+	padding: 5px;
+	top: -6%;
+	left: 40%;
 }
