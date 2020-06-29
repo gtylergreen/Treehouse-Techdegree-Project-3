@@ -134,6 +134,7 @@ activities.addEventListener('change', (e) => {
 
 document.querySelector('.paypal').firstElementChild.classList.add('paypal2');
 document.querySelector('.bitcoin').firstElementChild.classList.add('bitcoin2');
+document.querySelector('#credit-card').style.display === 'block';
 document.querySelector('.paypal').style.display = 'none';
 document.querySelector('.bitcoin').style.display = 'none';
 document.getElementById('payment').children[0].disabled = 'true';
@@ -155,6 +156,7 @@ paymentOptions.addEventListener('change', (e) => {
     document.querySelector('.paypal').style.display = 'none';
   }
 });
+
 let nameFieldset = document.querySelector('header').nextElementSibling
   .firstElementChild;
 let nameErrorMessage = document.createElement('div');
@@ -193,11 +195,10 @@ let emailErrorMessageText = document.createElement('span');
 emailErrorMessageText.textContent = 'Must be a valid email address.';
 emailErrorMessage.appendChild(emailErrorMessageText);
 nameFieldset.insertBefore(emailErrorMessage, nameFieldset.children[6]);
-
+let emailRegex = /^[\d\w*\.]+[@][a-zA-Z0-9]+\.[a-z]{3}$/;
 let emailAddress = document.getElementById('mail');
 emailAddress.addEventListener('focusout', (e) => {
   let input = e.target.value;
-  let emailRegex = /^[\d\w*\.]+[@][a-zA-Z0-9]+\.[a-z]{3}$/;
 
   if (!emailRegex.test(input)) {
     emailErrorMessage.style.display = 'inline-block';
@@ -307,11 +308,11 @@ zipCodeErrorMessageText.textContent = 'Please enter a valid Zip Code.';
 zipCodeErrorMessage.appendChild(zipCodeErrorMessageText);
 zipCodeDiv.insertBefore(zipCodeErrorMessage, zipCodeDiv.children[0]);
 
+let zipCodeRegex = /^[0-9]{5}$/;
 zipCodeInput.addEventListener('keyup', (e) => {
   if (e.target.value.length > 3) {
     let input = e.target.value;
 
-    let zipCodeRegex = /^[0-9]{5}$/;
     if (!zipCodeRegex.test(input)) {
       zipCodeErrorMessage.style.display = 'inline-block';
     }
@@ -320,7 +321,7 @@ zipCodeInput.addEventListener('keyup', (e) => {
     }
   }
 });
-
+console.log(zipCodeInput);
 let cvvDiv = document.querySelector('#credit-card').children[2];
 console.log(zipCodeDiv);
 let cvvInput = document.querySelector('#cvv');
@@ -330,7 +331,7 @@ let cvvErrorMessageText = document.createElement('span');
 cvvErrorMessageText.textContent = 'Please enter your three digit CVV code.';
 cvvErrorMessage.appendChild(cvvErrorMessageText);
 cvvDiv.insertBefore(cvvErrorMessage, cvvDiv.children[0]);
-
+let cvvRegex = /^[0-9]{3}$/;
 cvvInput.addEventListener('keyup', (e) => {
   let input = e.target.value;
 
@@ -346,7 +347,6 @@ cvvInput.addEventListener('keyup', (e) => {
 cvvInput.addEventListener('focusout', (e) => {
   let input = e.target.value;
 
-  let cvvRegex = /^[0-9]{3}$/;
   if (!cvvRegex.test(input)) {
     cvvErrorMessage.style.display = 'inline-block';
   }
@@ -355,11 +355,62 @@ cvvInput.addEventListener('focusout', (e) => {
   }
 });
 
-let submitFormButton = document.querySelector('button');
+let submitFormButton = document.querySelectorAll('button')[1];
 let form = document.querySelector('form');
 submitFormButton.addEventListener('click', (e) => {
-  if (!nameRegex.test(nameValue)) {
-    e.preventDefault();
-    console.log('button clicked');
+  e.preventDefault();
+  //debugger;
+  if (nameRegex.test(nameValue.value)) {
+    if (emailRegex.test(emailAddress.value)) {
+      if (
+        activityArray[0].checked ||
+        activityArray[1].checked ||
+        activityArray[2].checked ||
+        activityArray[3].checked ||
+        activityArray[4].checked ||
+        activityArray[5].checked ||
+        activityArray[6].checked
+      ) {
+        if (document.querySelector('#credit-card').style.display === 'block') {
+          console.log('blocked');
+          if (creditCardInput.disabled) {
+            console.log('we are doing it');
+            if (zipCodeRegex.test(zipCodeInput.value)) {
+              console.log('zipping');
+              if (cvvRegex.test(cvvInput.value)) {
+                console.log('cvv');
+                form.submit();
+              }
+            }
+          }
+        } else if (
+          paymentOptions.value === 'paypal' ||
+          paymentOptions.value === 'bitcoin'
+        ) {
+          console.log('not cc');
+          form.submit();
+        } else {
+          creditCardErrorMessage.style.display = 'inline-block';
+          creditCardInput.style.border = 'thick solid red';
+          creditCardInput.focus();
+        }
+      } else {
+        activitiesErrorMessage.style.display = 'inline-block';
+        activities.style.outline = 'thick solid red';
+        console.log(
+          activities.firstElementChild.nextElementSibling.nextElementSibling
+            .firstElementChild
+        );
+        activities.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.focus();
+      }
+    } else {
+      emailErrorMessage.style.display = 'inline-block';
+      emailAddress.style.border = 'thick solid red';
+      emailAddress.focus();
+    }
+  } else {
+    nameErrorMessage.style.display = 'inline-block';
+    nameValue.style.border = 'thick solid red';
+    document.getElementById('name').focus();
   }
 });
