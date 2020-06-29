@@ -243,8 +243,7 @@ activitiesDiv.addEventListener('click', (e) => {
 });
 
 let creditCardInput = document.querySelector('#cc-num');
-
-let creditCardDiv = document.querySelector('.activities').nextElementSibling;
+let creditCardDiv = document.querySelector('#credit-card').firstElementChild;
 creditCardDiv.classList.add('paymentFieldSet');
 console.log(creditCardDiv);
 let creditCardErrorMessage = document.createElement('div');
@@ -265,5 +264,26 @@ creditCardInput.addEventListener('change', (e) => {
   }
   if (creditCardRegex.test(input)) {
     creditCardErrorMessage.style.display = 'none';
+  }
+});
+let zipCodeDiv = document.querySelector('#credit-card').children[1];
+console.log(zipCodeDiv);
+let zipCodeInput = document.querySelector('#zip');
+let zipCodeErrorMessage = document.createElement('div');
+zipCodeErrorMessage.classList.add('zipCodePopup');
+let zipCodeErrorMessageText = document.createElement('span');
+zipCodeErrorMessageText.textContent = 'Please enter a valid Zip Code.';
+zipCodeErrorMessage.appendChild(zipCodeErrorMessageText);
+zipCodeDiv.insertBefore(zipCodeErrorMessage, zipCodeDiv.children[0]);
+
+zipCodeInput.addEventListener('keyup', (e) => {
+  let input = e.target.value;
+
+  let zipCodeRegex = /^[0-9]{5}$/;
+  if (!zipCodeRegex.test(input)) {
+    zipCodeErrorMessage.style.display = 'inline-block';
+  }
+  if (zipCodeRegex.test(input)) {
+    zipCodeErrorMessage.style.display = 'none';
   }
 });

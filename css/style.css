@@ -43,6 +43,7 @@ form {
   background: #9bbeef;
   border: 2px solid rgba(8, 63, 87, 0.6);
   border-radius: 3px;
+  position: absolute;
 }
 
 fieldset,
@@ -150,6 +151,10 @@ option {
 
 .interests input {
   margin-bottom: 0;
+}
+
+#credit-card {
+  position: relative;
 }
 
 .credit-card {
@@ -282,13 +287,29 @@ p {
 }
 
 .creditCardPopup {
-  display: none;
+  /* display: none; */
+  background-color: #a52a2a;
+  border-radius: 5px;
+  color: white;
+  position: absolute;
+  left: 60%;
+  top: 0%;
+  font-size: medium;
+  border: 2px solid #a9a9a9;
+  width: 140px;
+  text-align: center;
+  padding: 5px;
+}
+
+.zipCodePopup {
+  /* display: none; */
   background-color: #a52a2a;
   border-radius: 5px;
   color: white;
   position: absolute;
   left: 60%;
   top: 185%;
+  bottom: 50%
   font-size: medium;
   border: 2px solid #a9a9a9;
   width: 140px;
