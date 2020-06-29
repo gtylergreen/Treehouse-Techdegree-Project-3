@@ -11,23 +11,23 @@
 body,
 input,
 button {
-	font-family: 'Nunito', sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 
 body {
   font: 1em/1.5;
   color: rgba(6, 49, 68, 0.9);
-	background: #CDE0FB;
+  background: #cde0fb;
 }
 
 header {
-	text-align: center;  
+  text-align: center;
 }
 
 h1 {
-	font-size: 2.5em;
-	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
-	margin: 0;
+  font-size: 2.5em;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+  margin: 0;
 }
 
 a {
@@ -39,92 +39,92 @@ a {
 ==================================== */
 
 form {
-	padding: .875em 1.875em 1.875em;
-	background: #9BBEEF;
-	border: 2px solid rgba(8, 63, 87, 0.6);
-	border-radius: 3px;
+  padding: 0.875em 1.875em 1.875em;
+  background: #9bbeef;
+  border: 2px solid rgba(8, 63, 87, 0.6);
+  border-radius: 3px;
 }
 
 fieldset,
 legend,
 button {
-	padding: 0;
-	border: none;
+  padding: 0;
+  border: none;
 }
 
 fieldset {
-	margin-top: 1.5em;
+  margin-top: 1.5em;
 }
 
 legend,
 button {
-	font-size: 1.25em;	
+  font-size: 1.25em;
 }
 
 legend {
-	font-weight: bold;
-	padding-top: .5em;
-	border-top: 2px solid rgba(8, 63, 87, 0.6);
-	margin-bottom: 1.125em;
+  font-weight: bold;
+  padding-top: 0.5em;
+  border-top: 2px solid rgba(8, 63, 87, 0.6);
+  margin-bottom: 1.125em;
 }
 
-input[type="text"],
-input[type="email"],
+input[type='text'],
+input[type='email'],
 legend {
-	width: 100%;
+  width: 100%;
 }
 
 label {
-	color: #000;
-	display: block;
-	margin-bottom: .5em;
+  color: #000;
+  display: block;
+  margin-bottom: 0.5em;
 }
 
 input,
 select {
-	margin-bottom: 1.125em;	
+  margin-bottom: 1.125em;
 }
 
 input {
-	font-size: 1em;
-	font-weight: 500;
-	padding: .8em;
-	background: #e9f6fb;
-	border: 2px solid rgb(111, 157, 220);
-	border-radius: 3px;
-	outline: none;
+  font-size: 1em;
+  font-weight: 500;
+  padding: 0.8em;
+  background: #e9f6fb;
+  border: 2px solid rgb(111, 157, 220);
+  border-radius: 3px;
+  outline: none;
 }
 
 input:focus {
-	background: #fff;
-	border-color: #5e97b0;
-	transition: border-color .4s, background-color .4s;
+  background: #fff;
+  border-color: #5e97b0;
+  transition: border-color 0.4s, background-color 0.4s;
 }
 
-input[type="checkbox"],
-input[type="radio"] {
-	display: inline-block;
+input[type='checkbox'],
+input[type='radio'] {
+  display: inline-block;
 }
 
 button {
-	color: #fff;
-	padding: .55em 1.25em;
-	background: #083f57;
-	margin: 1.25em 0 .5em;
-	cursor: pointer;
-	border: 2px solid black;
-	border-radius: 4px;
-	transition: all 0.5s;
+  color: #fff;
+  padding: 0.55em 1.25em;
+  background: #083f57;
+  margin: 1.25em 0 0.5em;
+  cursor: pointer;
+  border: 2px solid black;
+  border-radius: 4px;
+  transition: all 0.5s;
 }
 
 button:hover {
-	background: #6F9DDC;
+  background: #6f9ddc;
 }
 
-input, 
-select, 
+input,
+select,
 option {
-	font-family: 'roboto', sans-serif;
+  font-family: 'roboto', sans-serif;
 }
 
 /* ================================= 
@@ -132,50 +132,58 @@ option {
 ==================================== */
 
 .container {
-	margin: auto;
-	max-width: 680px;
+  margin: auto;
+  max-width: 680px;
 }
 
 .shirt div {
-	float: left;
-	margin-right: .85em;
+  float: left;
+  margin-right: 0.85em;
 }
 
 .shirt-box {
-	width: 100%;
-	padding: 5px;
-	background: rgba(255, 255, 255, 0.1);
-	border-radius: 4px;
+  width: 100%;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
 }
 
 .interests input {
-	margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .credit-card {
-	margin-top: 1.25em;
+  margin-top: 1.25em;
 }
 
 .credit-card,
 .paypal,
 .bitcoin {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	padding: 5px;
-	background: rgba(255, 255, 255, 0.1);
-	border-radius: 4px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 100px;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
 }
+
+/* .paypal2 {
+  top: 60%;
+}
+
+.bitcoin2 {
+} */
 
 /* ================================= 
   Helper Classes
 ==================================== */
 
 .is-hidden {
-	display: none;
+  display: none;
 }
 
 .clearfix::after {
-  content: " ";
+  content: ' ';
   display: table;
   clear: both;
 }
@@ -185,32 +193,113 @@ option {
 ==================================== */
 
 @media (min-width: 0) and (max-width: 679px) {
-	header {
-		padding: 2em 0;
-	}
-	button {
-		width: 100%;
-	}
+  header {
+    padding: 2em 0;
+  }
+  button {
+    width: 100%;
+  }
 }
 
 @media (min-width: 680px) {
-	header {
-		padding: 4.65em 0 2.5em;
-	}
-	.col {
-		float: left;
-	}
-	.col + .col {
-		margin-left: 2.5%;
-	}
-	.col-3 {
-		width: 23%;
-	}
-	.col-6 {
-		width: 49%;
-	}
+  header {
+    padding: 4.65em 0 2.5em;
+  }
+  .col {
+    float: left;
+  }
+  .col + .col {
+    margin-left: 2.5%;
+  }
+  .col-3 {
+    width: 23%;
+  }
+  .col-6 {
+    width: 49%;
+  }
 
-	label {
-		clear: both;
-	}
+  label {
+    clear: both;
+  }
+}
+
+.popup {
+  position: relative;
+  display: block;
+  left: 300px;
+}
+
+.namePopup {
+  display: none;
+  background-color: #a52a2a;
+  border-radius: 5px;
+  color: white;
+  position: absolute;
+  left: 80%;
+  top: 25%;
+  font-size: medium;
+  border: 2px solid #a9a9a9;
+  width: 140px;
+  text-align: center;
+  padding: 5px;
+}
+
+.emailPopup {
+  display: none;
+  background-color: #a52a2a;
+  border-radius: 5px;
+  color: white;
+  position: absolute;
+  left: 80%;
+  top: 57%;
+  font-size: medium;
+  border: 2px solid #a9a9a9;
+  width: 140px;
+  text-align: center;
+  padding: 5px;
+}
+
+.activitiesPopup {
+  display: none;
+  background-color: #a52a2a;
+  border-radius: 5px;
+  color: white;
+  position: absolute;
+  left: 70%;
+  top: 60%;
+  font-size: medium;
+  border: 2px solid #a9a9a9;
+  width: 140px;
+  text-align: center;
+  padding: 5px;
+}
+
+p {
+  top: 0%;
+  /* display: inline-block; */
+  position: absolute;
+  left: 35%;
+}
+
+.creditCardPopup {
+  display: none;
+  background-color: #a52a2a;
+  border-radius: 5px;
+  color: white;
+  position: absolute;
+  left: 60%;
+  top: 185%;
+  font-size: medium;
+  border: 2px solid #a9a9a9;
+  width: 140px;
+  text-align: center;
+  padding: 5px;
+}
+
+fieldset {
+  position: relative;
+}
+
+.paymentFieldSet {
+  position: relative;
 }

@@ -34,6 +34,7 @@ designBox.addEventListener('change', (e) => {
   if (e.target.value !== 'Select Theme') {
     console.log(e.target.value);
     shirtColor.removeAttribute('disabled');
+    shirtColor.children[0].disabled = 'true';
     if (e.target.value === 'js puns') {
       console.log(shirtColor[4]);
       shirtColor.children[4].style.display = 'none';
@@ -121,7 +122,9 @@ activities.addEventListener('change', (e) => {
   totalCostText(cost);
 });
 
-document.querySelector('.paypal').style.display = 'none';
+document.querySelector('.paypal').firstElementChild.classList.add('paypal2');
+document.querySelector('.bitcoin').firstElementChild.classList.add('bitcoin2');
+// document.querySelector('.paypal').style.display = 'block';
 document.querySelector('.bitcoin').style.display = 'none';
 document.getElementById('payment').children[0].disabled = 'true';
 
@@ -140,5 +143,127 @@ paymentOptions.addEventListener('change', (e) => {
     document.querySelector('#credit-card').style.display = 'block';
     document.querySelector('.bitcoin').style.display = 'none';
     document.querySelector('.paypal').style.display = 'none';
+  }
+});
+let nameFieldset = document.querySelector('header').nextElementSibling
+  .firstElementChild;
+let nameErrorMessage = document.createElement('div');
+nameErrorMessage.classList.add('namePopup');
+let nameErrorMessageText = document.createElement('span');
+nameErrorMessageText.textContent = 'Name must include at least one letter.';
+nameErrorMessage.appendChild(nameErrorMessageText);
+nameFieldset.insertBefore(nameErrorMessage, nameFieldset.children[2]);
+
+let nameValue = document.getElementById('name');
+nameValue.addEventListener('focusout', (e) => {
+  let input = e.target.value;
+  let nameRegex = /^[a-z]+$/;
+  if (!nameRegex.test(input)) {
+    nameErrorMessage.style.display = 'inline-block';
+  }
+  if (nameRegex.test(input)) {
+    nameErrorMessage.style.display = 'none';
+  }
+});
+
+nameValue.addEventListener('keyup', (e) => {
+  let input = e.target.value;
+  let nameRegex = /^[a-zA-Z]+$/;
+  if (!nameRegex.test(input)) {
+    nameErrorMessage.style.display = 'inline-block';
+  }
+  if (nameRegex.test(input)) {
+    nameErrorMessage.style.display = 'none';
+  }
+});
+
+let emailErrorMessage = document.createElement('div');
+emailErrorMessage.classList.add('emailPopup');
+let emailErrorMessageText = document.createElement('span');
+emailErrorMessageText.textContent = 'Must be a valid email address.';
+emailErrorMessage.appendChild(emailErrorMessageText);
+nameFieldset.insertBefore(emailErrorMessage, nameFieldset.children[6]);
+
+let emailAddress = document.getElementById('mail');
+emailAddress.addEventListener('focusout', (e) => {
+  let input = e.target.value;
+  let emailRegex = /^[a-zA-Z0-9]+[@][a-zA-Z0-9]+\.[a-z]{3}$/;
+  if (!emailRegex.test(input)) {
+    emailErrorMessage.style.display = 'inline-block';
+  }
+  if (emailRegex.test(input)) {
+    emailErrorMessage.style.display = 'none';
+  }
+});
+
+emailAddress.addEventListener('keyup', (e) => {
+  let input = e.target.value;
+  if (input.length > 2) {
+    let emailRegex = /^[a-zA-Z0-9]+[@][a-zA-Z0-9]+\.[a-z]{3}$/;
+    if (!emailRegex.test(input)) {
+      emailErrorMessage.style.display = 'inline-block';
+    }
+    if (emailRegex.test(input)) {
+      emailErrorMessage.style.display = 'none';
+    }
+  }
+});
+
+let activitiesDiv = document.querySelector('.activities');
+let activitiesParameter = document.createElement('p');
+activitiesParameter.innerHTML = `(Please select at least one activity.)`;
+activitiesDiv.insertBefore(activitiesParameter, activitiesDiv.children[1]);
+let activitiesErrorMessage = document.createElement('div');
+activitiesErrorMessage.classList.add('activitiesPopup');
+let activitiesErrorMessageText = document.createElement('span');
+activitiesErrorMessageText.textContent = 'Please select at least one activity.';
+activitiesErrorMessage.appendChild(activitiesErrorMessageText);
+activitiesDiv.insertBefore(activitiesErrorMessage, activitiesDiv.children[2]);
+
+activitiesDiv.addEventListener('mouseleave', (e) => {
+  //debugger;
+  for (let i = 0; i < activityArray.length; i++) {
+    if (activityArray[i].checked) {
+      activitiesErrorMessage.style.display = 'none';
+      break;
+    } else {
+      activitiesErrorMessage.style.display = 'inline-block';
+    }
+  }
+});
+
+activitiesDiv.addEventListener('click', (e) => {
+  debugger;
+  for (let i = 0; i < activityArray.length; i++) {
+    if (activityArray[i].checked) {
+      activitiesErrorMessage.style.display = 'none';
+      break;
+    }
+  }
+});
+
+let creditCardInput = document.querySelector('#cc-num');
+
+let creditCardDiv = document.querySelector('.activities').nextElementSibling;
+creditCardDiv.classList.add('paymentFieldSet');
+console.log(creditCardDiv);
+let creditCardErrorMessage = document.createElement('div');
+creditCardErrorMessage.classList.add('creditCardPopup');
+let creditCardErrorMessageText = document.createElement('span');
+creditCardErrorMessageText.textContent =
+  'Please enter a valid credit card number with no spaces or dashes.';
+creditCardErrorMessage.appendChild(creditCardErrorMessageText);
+creditCardDiv.insertBefore(creditCardErrorMessage, creditCardDiv.children[1]);
+
+creditCardInput.addEventListener('change', (e) => {
+  let input = e.target.value;
+
+  //parseInt(newInputNoSpace);
+  let creditCardRegex = /^\d{13,16}\s*\b/;
+  if (!creditCardRegex.test(input)) {
+    creditCardErrorMessage.style.display = 'inline-block';
+  }
+  if (creditCardRegex.test(input)) {
+    creditCardErrorMessage.style.display = 'none';
   }
 });
