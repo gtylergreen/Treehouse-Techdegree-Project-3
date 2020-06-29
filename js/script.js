@@ -150,7 +150,7 @@ let nameFieldset = document.querySelector('header').nextElementSibling
 let nameErrorMessage = document.createElement('div');
 nameErrorMessage.classList.add('namePopup');
 let nameErrorMessageText = document.createElement('span');
-nameErrorMessageText.textContent = 'Name must include at least one letter.';
+nameErrorMessageText.textContent = 'Name field cannot be blank.';
 nameErrorMessage.appendChild(nameErrorMessageText);
 nameFieldset.insertBefore(nameErrorMessage, nameFieldset.children[2]);
 
@@ -187,7 +187,8 @@ nameFieldset.insertBefore(emailErrorMessage, nameFieldset.children[6]);
 let emailAddress = document.getElementById('mail');
 emailAddress.addEventListener('focusout', (e) => {
   let input = e.target.value;
-  let emailRegex = /^[a-zA-Z0-9]+[@][a-zA-Z0-9]+\.[a-z]{3}$/;
+  let emailRegex = /^[\d\w*\.]+[@][a-zA-Z0-9]+\.[a-z]{3}$/;
+
   if (!emailRegex.test(input)) {
     emailErrorMessage.style.display = 'inline-block';
   }
@@ -254,7 +255,7 @@ creditCardErrorMessageText.textContent =
 creditCardErrorMessage.appendChild(creditCardErrorMessageText);
 creditCardDiv.insertBefore(creditCardErrorMessage, creditCardDiv.children[1]);
 
-creditCardInput.addEventListener('change', (e) => {
+creditCardInput.addEventListener('keyup', (e) => {
   let input = e.target.value;
 
   //parseInt(newInputNoSpace);
@@ -285,5 +286,39 @@ zipCodeInput.addEventListener('keyup', (e) => {
   }
   if (zipCodeRegex.test(input)) {
     zipCodeErrorMessage.style.display = 'none';
+  }
+});
+
+let cvvDiv = document.querySelector('#credit-card').children[2];
+console.log(zipCodeDiv);
+let cvvInput = document.querySelector('#cvv');
+let cvvErrorMessage = document.createElement('div');
+cvvErrorMessage.classList.add('cvvPopup');
+let cvvErrorMessageText = document.createElement('span');
+cvvErrorMessageText.textContent = 'Please enter your three digit CVV code.';
+cvvErrorMessage.appendChild(cvvErrorMessageText);
+cvvDiv.insertBefore(cvvErrorMessage, cvvDiv.children[0]);
+
+cvvInput.addEventListener('keyup', (e) => {
+  let input = e.target.value;
+
+  let cvvRegex = /^[0-9]{3}$/;
+  if (!cvvRegex.test(input)) {
+    cvvErrorMessage.style.display = 'inline-block';
+  }
+  if (cvvRegex.test(input)) {
+    cvvErrorMessage.style.display = 'none';
+  }
+});
+
+cvvInput.addEventListener('focusout', (e) => {
+  let input = e.target.value;
+
+  let cvvRegex = /^[0-9]{3}$/;
+  if (!cvvRegex.test(input)) {
+    cvvErrorMessage.style.display = 'inline-block';
+  }
+  if (cvvRegex.test(input)) {
+    cvvErrorMessage.style.display = 'none';
   }
 });

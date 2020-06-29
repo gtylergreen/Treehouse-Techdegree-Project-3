@@ -241,7 +241,7 @@ option {
   color: white;
   position: absolute;
   left: 80%;
-  top: 25%;
+  top: 27%;
   font-size: medium;
   border: 2px solid #a9a9a9;
   width: 140px;
@@ -287,7 +287,7 @@ p {
 }
 
 .creditCardPopup {
-  /* display: none; */
+  display: none;
   background-color: #a52a2a;
   border-radius: 5px;
   color: white;
@@ -302,19 +302,35 @@ p {
 }
 
 .zipCodePopup {
-  /* display: none; */
+  display: none;
   background-color: #a52a2a;
   border-radius: 5px;
   color: white;
   position: absolute;
-  left: 60%;
-  top: 185%;
+  left: 52.5%;
+  top: 70%;
   bottom: 50%
   font-size: medium;
   border: 2px solid #a9a9a9;
   width: 140px;
   text-align: center;
   padding: 5px;
+}
+
+.cvvPopup {
+	display: none;
+	background-color: #a52a2a;
+	border-radius: 5px;
+	color: white;
+	position: absolute;
+	left: 95%;
+	top: 20%;
+	bottom: 50%
+	font-size: medium;
+	border: 2px solid #a9a9a9;
+	width: 140px;
+	text-align: center;
+	padding: 5px;
 }
 
 fieldset {
