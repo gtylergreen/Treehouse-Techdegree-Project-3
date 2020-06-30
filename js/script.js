@@ -140,6 +140,8 @@ document.querySelector('.bitcoin').style.display = 'none';
 document.getElementById('payment').children[0].disabled = 'true';
 
 const paymentOptions = document.querySelector('#payment');
+paymentOptions.firstElementChild.style.display = 'none';
+paymentOptions.removeChild(paymentOptions.firstElementChild);
 paymentOptions.addEventListener('change', (e) => {
   console.log(e.target.value);
   if (e.target.value === 'paypal') {
@@ -165,7 +167,7 @@ let nameErrorMessageText = document.createElement('span');
 nameErrorMessageText.textContent = 'Name field cannot be blank.';
 nameErrorMessage.appendChild(nameErrorMessageText);
 nameFieldset.insertBefore(nameErrorMessage, nameFieldset.children[2]);
-let nameRegex = /^[a-z]+$/;
+let nameRegex = /^[a-zA-Z\s*]+$/;
 let nameValue = document.getElementById('name');
 nameValue.addEventListener('focusout', (e) => {
   let input = e.target.value;
@@ -180,7 +182,7 @@ nameValue.addEventListener('focusout', (e) => {
 
 nameValue.addEventListener('keyup', (e) => {
   let input = e.target.value;
-  let nameRegex = /^[a-zA-Z]+$/;
+  //let nameRegex = /^[a-zA-Z\s*]+$/;
   if (!nameRegex.test(input)) {
     nameErrorMessage.style.display = 'inline-block';
   }
@@ -208,18 +210,18 @@ emailAddress.addEventListener('focusout', (e) => {
   }
 });
 
-emailAddress.addEventListener('keyup', (e) => {
-  let input = e.target.value;
-  if (input.length > 2) {
-    let emailRegex = /^[a-zA-Z0-9]+[@][a-zA-Z0-9]+\.[a-z]{3}$/;
-    if (!emailRegex.test(input)) {
-      emailErrorMessage.style.display = 'inline-block';
-    }
-    if (emailRegex.test(input)) {
-      emailErrorMessage.style.display = 'none';
-    }
-  }
-});
+// emailAddress.addEventListener('keyup', (e) => {
+//   let input = e.target.value;
+//   if (input.length > 2) {
+//     let emailRegex = /^[a-zA-Z0-9]+[@][a-zA-Z0-9]+\.[a-z]{3}$/;
+//     if (!emailRegex.test(input)) {
+//       emailErrorMessage.style.display = 'inline-block';
+//     }
+//     if (emailRegex.test(input)) {
+//       emailErrorMessage.style.display = 'none';
+//     }
+//   }
+// });
 
 let activitiesDiv = document.querySelector('.activities');
 let activitiesParameter = document.createElement('p');
@@ -360,57 +362,77 @@ let form = document.querySelector('form');
 submitFormButton.addEventListener('click', (e) => {
   e.preventDefault();
   //debugger;
-  if (nameRegex.test(nameValue.value)) {
-    if (emailRegex.test(emailAddress.value)) {
-      if (
-        activityArray[0].checked ||
-        activityArray[1].checked ||
-        activityArray[2].checked ||
-        activityArray[3].checked ||
-        activityArray[4].checked ||
-        activityArray[5].checked ||
-        activityArray[6].checked
-      ) {
-        if (document.querySelector('#credit-card').style.display === 'block') {
-          console.log('blocked');
-          if (creditCardInput.disabled) {
-            console.log('we are doing it');
-            if (zipCodeRegex.test(zipCodeInput.value)) {
-              console.log('zipping');
-              if (cvvRegex.test(cvvInput.value)) {
-                console.log('cvv');
-                form.submit();
-              }
-            }
-          }
-        } else if (
-          paymentOptions.value === 'paypal' ||
-          paymentOptions.value === 'bitcoin'
-        ) {
-          console.log('not cc');
-          form.submit();
-        } else {
-          creditCardErrorMessage.style.display = 'inline-block';
-          creditCardInput.style.border = 'thick solid red';
-          creditCardInput.focus();
-        }
-      } else {
-        activitiesErrorMessage.style.display = 'inline-block';
-        activities.style.outline = 'thick solid red';
-        console.log(
-          activities.firstElementChild.nextElementSibling.nextElementSibling
-            .firstElementChild
-        );
-        activities.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.focus();
-      }
-    } else {
-      emailErrorMessage.style.display = 'inline-block';
-      emailAddress.style.border = 'thick solid red';
-      emailAddress.focus();
-    }
-  } else {
+  if (!nameRegex.test(nameValue.value)) {
     nameErrorMessage.style.display = 'inline-block';
     nameValue.style.border = 'thick solid red';
     document.getElementById('name').focus();
+  }
+  if (!emailRegex.test(emailAddress.value)) {
+    emailErrorMessage.style.display = 'inline-block';
+    emailAddress.style.border = 'thick solid red';
+    emailAddress.focus();
+  }
+  if (
+    !activityArray[0].checked &&
+    !activityArray[1].checked &&
+    !activityArray[2].checked &&
+    !activityArray[3].checked &&
+    !activityArray[4].checked &&
+    !activityArray[5].checked &&
+    !activityArray[6].checked
+  ) {
+    activitiesErrorMessage.style.display = 'inline-block';
+    activities.style.outline = 'thick solid red';
+    console.log(
+      activities.firstElementChild.nextElementSibling.nextElementSibling
+        .firstElementChild
+    );
+    activities.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.focus();
+  }
+
+  if (paymentOptions.value === 'credit card') {
+    if (!creditCardInput.disabled) {
+      creditCardErrorMessage.style.display = 'inline-block';
+      creditCardInput.style.border = 'thick solid red';
+      creditCardInput.focus();
+    }
+    if (!zipCodeRegex.test(zipCodeInput.value)) {
+      zipCodeErrorMessage.style.display = 'inline-block';
+      zipCodeInput.style.border = 'thick solid red';
+      zipCodeInput.focus();
+    }
+    if (!cvvRegex.test(cvvInput.value)) {
+      cvvErrorMessage.style.display = 'inline-block';
+      cvvInput.style.border = 'thick solid red';
+      cvvInput.focus();
+    }
+  }
+
+  if (nameRegex.test(nameValue.value) && emailRegex.test(emailAddress.value)) {
+    if (
+      activityArray[0].checked ||
+      activityArray[1].checked ||
+      activityArray[2].checked ||
+      activityArray[3].checked ||
+      activityArray[4].checked ||
+      activityArray[5].checked ||
+      activityArray[6].checked
+    ) {
+      if (paymentOptions.value === 'credit card') {
+        if (creditCardInput.disabled) {
+          if (zipCodeRegex.test(zipCodeInput.value)) {
+            if (cvvRegex.test(cvvInput.value)) {
+              form.submit();
+            }
+          }
+        }
+      } else if (
+        paymentOptions.value === 'paypal' ||
+        paymentOptions.value === 'bitcoin'
+      ) {
+        console.log('not cc');
+        form.submit();
+      }
+    }
   }
 });
