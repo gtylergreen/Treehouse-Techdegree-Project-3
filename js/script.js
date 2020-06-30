@@ -32,6 +32,9 @@ placeholder.textContent = 'Please select a T-shirt theme.';
 shirtColor.prepend(placeholder);
 shirtColor.selectedIndex = 0;
 shirtColor.setAttribute('disabled', 'true');
+shirtColor.style.display = 'none';
+document.getElementById('colors-js-puns').firstElementChild.style.display =
+  'none';
 
 const designBox = document.getElementById('design');
 designBox.addEventListener('change', (e) => {
@@ -43,6 +46,9 @@ designBox.addEventListener('change', (e) => {
 
   if (e.target.value !== 'Select Theme') {
     console.log(e.target.value);
+    document.getElementById('colors-js-puns').firstElementChild.style.display =
+      'block';
+    shirtColor.style.display = 'block';
     shirtColor.removeAttribute('disabled');
     shirtColor.children[0].disabled = 'true';
     if (e.target.value === 'js puns') {
@@ -197,31 +203,54 @@ let emailErrorMessageText = document.createElement('span');
 emailErrorMessageText.textContent = 'Must be a valid email address.';
 emailErrorMessage.appendChild(emailErrorMessageText);
 nameFieldset.insertBefore(emailErrorMessage, nameFieldset.children[6]);
+
+let emailErrorMessage2 = document.createElement('div');
+emailErrorMessage2.classList.add('emailPopup');
+let emailErrorMessageText2 = document.createElement('span');
+emailErrorMessageText2.textContent =
+  'Email address must be formatted like dave@treehouse.com.';
+emailErrorMessage2.appendChild(emailErrorMessageText2);
+nameFieldset.insertBefore(emailErrorMessage2, nameFieldset.children[6]);
+
 let emailRegex = /^[\d\w*\.]+[@][a-zA-Z0-9]+\.[a-z]{3}$/;
 let emailAddress = document.getElementById('mail');
 emailAddress.addEventListener('focusout', (e) => {
   let input = e.target.value;
-
+  //debugger;
   if (!emailRegex.test(input)) {
     emailErrorMessage.style.display = 'inline-block';
   }
   if (emailRegex.test(input)) {
     emailErrorMessage.style.display = 'none';
   }
+  if ((emailErrorMessage.style.display = 'inline-block')) {
+    emailErrorMessage.style.display = 'none';
+
+    emailErrorMessage2.style.display = 'inline-block';
+  }
+  if (emailRegex.test(input)) {
+    emailErrorMessage2.style.display = 'none';
+  }
 });
 
-// emailAddress.addEventListener('keyup', (e) => {
-//   let input = e.target.value;
-//   if (input.length > 2) {
-//     let emailRegex = /^[a-zA-Z0-9]+[@][a-zA-Z0-9]+\.[a-z]{3}$/;
-//     if (!emailRegex.test(input)) {
-//       emailErrorMessage.style.display = 'inline-block';
-//     }
-//     if (emailRegex.test(input)) {
-//       emailErrorMessage.style.display = 'none';
-//     }
-//   }
-// });
+emailAddress.addEventListener('keyup', (e) => {
+  let input = e.target.value;
+  if (input.length > 2) {
+    let emailRegex = /^[a-zA-Z0-9]+[@][a-zA-Z0-9]+\.[a-z]{3}$/;
+    if (!emailRegex.test(input)) {
+      emailErrorMessage.style.display = 'inline-block';
+    }
+    if (emailRegex.test(input)) {
+      emailErrorMessage.style.display = 'none';
+    }
+    if (document.activeElement.id === 'mail') {
+      emailErrorMessage2.style.display = 'none';
+    }
+    // if ((emailErrorMessage2.style.display = 'inline-block')) {
+    //   emailErrorMessage.style.display = 'none';
+    // }
+  }
+});
 
 let activitiesDiv = document.querySelector('.activities');
 let activitiesParameter = document.createElement('p');
