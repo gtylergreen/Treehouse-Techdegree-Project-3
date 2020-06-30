@@ -354,3 +354,7 @@ fieldset {
 	top: -6%;
 	left: 40%;
 }
+
+.redBorder {
+  border: medium solid red;
+}

@@ -7,7 +7,7 @@ const title = document.getElementById('title');
 
 //Event listener on change for the job title drop down. If other is selected, shows the other text box.
 title.addEventListener('change', (e) => {
-  let selection = title.value;
+  const selection = title.value;
   if (selection === 'other') {
     otherTextField.style.display = 'block';
   }
@@ -16,8 +16,8 @@ title.addEventListener('change', (e) => {
   }
 });
 
-let shirtColor = document.getElementById('color');
-let placeholder = document.createElement('option');
+const shirtColor = document.getElementById('color');
+const placeholder = document.createElement('option');
 //Set the placeholder for the tshirt design field.
 placeholder.setAttribute('value', 'placeholder');
 placeholder.textContent = 'Please select a T-shirt theme.';
@@ -42,7 +42,7 @@ designBox.addEventListener('change', (e) => {
     shirtColor.removeAttribute('disabled');
     shirtColor.children[0].disabled = 'true';
     if (e.target.value === 'js puns') {
-      console.log(shirtColor[4]);
+      shirtColor.children[0].selected = true;
       shirtColor.children[4].style.display = 'none';
       shirtColor.children[5].style.display = 'none';
       shirtColor.children[6].style.display = 'none';
@@ -51,6 +51,8 @@ designBox.addEventListener('change', (e) => {
       shirtColor.children[3].style.display = 'block';
     }
     if (e.target.value === 'heart js') {
+      shirtColor.children[0].selected = true;
+      shirtColor.children[0].style.display = 'block';
       shirtColor.children[1].style.display = 'none';
       shirtColor.children[2].style.display = 'none';
       shirtColor.children[3].style.display = 'none';
@@ -92,7 +94,6 @@ activities.addEventListener('change', (e) => {
   let cost = 0;
   if (e.target.checked) {
     for (let i = 0; i < activityArray.length; i++) {
-      //debugger;
       if (
         e.target.getAttribute('data-day-and-time') ===
         activityArray[i].getAttribute('data-day-and-time')
@@ -191,6 +192,7 @@ nameValue.addEventListener('focusout', (e) => {
   }
   if (nameRegex.test(input)) {
     nameErrorMessage.style.display = 'none';
+    nameValue.classList.remove('redBorder');
   }
 });
 
@@ -217,20 +219,21 @@ let emailRegex = /^[\d\w*\.]+[@][a-zA-Z0-9]+\.[a-z]{3}$/;
 let emailAddress = document.getElementById('mail');
 emailAddress.addEventListener('focusout', (e) => {
   let input = e.target.value;
-  //debugger;
+
   if (!emailRegex.test(input)) {
     emailErrorMessage.style.display = 'inline-block';
   }
   if (emailRegex.test(input)) {
     emailErrorMessage.style.display = 'none';
+    emailAddress.classList.remove('redBorder');
   }
   if ((emailErrorMessage.style.display = 'inline-block')) {
     emailErrorMessage.style.display = 'none';
-
     emailErrorMessage2.style.display = 'inline-block';
   }
   if (emailRegex.test(input)) {
     emailErrorMessage2.style.display = 'none';
+    emailAddress.classList.remove('redBorder');
   }
 });
 //If the user types more than 2 characters, they will be shown the first error message telling them to
@@ -244,6 +247,7 @@ emailAddress.addEventListener('keyup', (e) => {
     }
     if (emailRegex.test(input)) {
       emailErrorMessage.style.display = 'none';
+      emailAddress.classList.remove('redBorder');
     }
     if (document.activeElement.id === 'mail') {
       emailErrorMessage2.style.display = 'none';
@@ -269,6 +273,7 @@ activitiesDiv.addEventListener('mouseleave', (e) => {
   for (let i = 0; i < activityArray.length; i++) {
     if (activityArray[i].checked) {
       activitiesErrorMessage.style.display = 'none';
+      activitiesDiv.removeAttribute('style');
       break;
     } else {
       activitiesErrorMessage.style.display = 'inline-block';
@@ -282,6 +287,7 @@ activitiesDiv.addEventListener('click', (e) => {
   for (let i = 0; i < activityArray.length; i++) {
     if (activityArray[i].checked) {
       activitiesErrorMessage.style.display = 'none';
+      activitiesDiv.classList.remove('redBorder');
       break;
     }
   }
@@ -333,6 +339,7 @@ creditCardInput.addEventListener('blur', (e) => {
     creditCardErrorMessage.style.display = 'inline-block';
   }
   if (creditCardRegex.test(input)) {
+    creditCardInput.classList.remove('redBorder');
     creditCardErrorMessage.style.display = 'none';
     let finalInput = creditCardInput.value;
     finalInput = formatCreditCard(finalInput, 4).join('-');
@@ -374,6 +381,7 @@ zipCodeInput.addEventListener('keyup', (e) => {
     }
     if (zipCodeRegex.test(input)) {
       zipCodeErrorMessage.style.display = 'none';
+      zipCodeInput.classList.remove('redBorder');
     }
   }
 });
@@ -399,6 +407,7 @@ cvvInput.addEventListener('keyup', (e) => {
     cvvErrorMessage.style.display = 'inline-block';
   }
   if (cvvRegex.test(input)) {
+    cvvInput.classList.remove('redBorder');
     cvvErrorMessage.style.display = 'none';
   }
 });
@@ -428,8 +437,8 @@ submitFormButton.addEventListener('click', (e) => {
   //Checks to see if the name is valid. If not, highlights the box in red, shows the custom error
   //message and bring the focus to the box.
   if (!nameRegex.test(nameValue.value)) {
+    nameValue.classList.add('redBorder');
     nameErrorMessage.style.display = 'inline-block';
-    nameValue.style.border = 'thick solid red';
     document.getElementById('name').focus();
   }
 
@@ -437,7 +446,7 @@ submitFormButton.addEventListener('click', (e) => {
   //message and bring the focus to the box.
   if (!emailRegex.test(emailAddress.value)) {
     emailErrorMessage.style.display = 'inline-block';
-    emailAddress.style.border = 'thick solid red';
+    emailAddress.classList.add('redBorder');
     emailAddress.focus();
   }
 
@@ -453,7 +462,7 @@ submitFormButton.addEventListener('click', (e) => {
     !activityArray[6].checked
   ) {
     activitiesErrorMessage.style.display = 'inline-block';
-    activities.style.outline = 'thick solid red';
+    activities.style.outline = 'medium solid red';
     console.log(
       activities.firstElementChild.nextElementSibling.nextElementSibling
         .firstElementChild
@@ -466,22 +475,22 @@ submitFormButton.addEventListener('click', (e) => {
     //Checks to see if the credit card is valid. If not, highlights the box in red, shows the custom error
     //message and bring the focus to the box.
     if (!creditCardInput.disabled) {
+      creditCardInput.classList.add('redBorder');
       creditCardErrorMessage.style.display = 'inline-block';
-      creditCardInput.style.border = 'thick solid red';
       creditCardInput.focus();
     }
     //Checks to see if the zip code is valid. If not, highlights the box in red, shows the custom error
     //message and bring the focus to the box.
     if (!zipCodeRegex.test(zipCodeInput.value)) {
       zipCodeErrorMessage.style.display = 'inline-block';
-      zipCodeInput.style.border = 'thick solid red';
+      zipCodeInput.classList.add('redBorder');
       zipCodeInput.focus();
     }
     //Checks to see if the cvv is valid. If not, highlights the box in red, shows the custom error
     //message and bring the focus to the box.
     if (!cvvRegex.test(cvvInput.value)) {
       cvvErrorMessage.style.display = 'inline-block';
-      cvvInput.style.border = 'thick solid red';
+      cvvInput.classList.add('redBorder');
       cvvInput.focus();
     }
   }
